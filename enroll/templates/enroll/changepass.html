@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Registration Form</title>
+</head>
+<style>
+    .color{
+        color:red;
+    }
+</style>
+<body>
+    <form action="" method="POST">{% csrf_token %}
+        {% for fm in form %}
+        {{fm.label_tag}} {{fm}} {{fm.errors|striptags}} <br><br>
+        {% endfor %}
+        <input type="submit" value="Save"><br>
+        <a href="{% url 'profile' %}"> Back to Profile </a><br>
+
+    </form>
+
+{% if messages %}
+    {% for message in messages %}
+        <small class="color" {% if messages.tags %} class="{{messages.tags}}" {% endif %}> {{message}} </small>
+    {% endfor %}
+{% endif %}
+{% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <p class="error">{{ error }}</P>
+        {% endfor %}
+        {% endif %}
+</body>
+</html>
